@@ -8,9 +8,9 @@
       <link rel="stylesheet" href="{{ asset_url }}"/>
       {% endstylesheets %}
   {% endblock %}
-{% block title %}
-    Edit utilisateur - {{ parent() }}
-{% endblock %}
+{#{% block title %}#}
+    {#Edit utilisateur - {{ parent() }}#}
+{#{% endblock %}#}
 
 {% block header_breadcrumb %}
     <li>
@@ -42,12 +42,12 @@
                         <span class="caption-helper">...</span>
                     </div>
 
-                    <div class="tools">
-                        <a href="javascript:;" class="collapse" data-original-title="Réduire" title="Réduire"> </a>
-                        <a href="javascript:;" class="reload" data-original-title="Recharger" title="Recharger"> </a>
-                        <a href="" class="fullscreen" data-original-title="Plein écran" title="Plein écran"> </a>
-                        <a href="javascript:;" class="remove" data-original-title="Fermer" title="Fermer"> </a>
-                    </div>
+                    {#<div class="tools">#}
+                        {#<a href="javascript:;" class="collapse" data-original-title="Réduire" title="Réduire"> </a>#}
+                        {#<a href="javascript:;" class="reload" data-original-title="Recharger" title="Recharger"> </a>#}
+                        {#<a href="" class="fullscreen" data-original-title="Plein écran" title="Plein écran"> </a>#}
+                        {#<a href="javascript:;" class="remove" data-original-title="Fermer" title="Fermer"> </a>#}
+                    {#</div>#}
                 </div>
                 <div class="portlet-body form">
                     <!-- BEGIN FORM-->
@@ -77,7 +77,7 @@
 
                                         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                                         <span class="sr-only">Error:</span>
-                                        Erreurr lors de la modification.
+                                        Erreur lors de la modification.
                                     </div>
                                 {% endif %}
                                 {% if error is defined and error %}
@@ -90,12 +90,23 @@
                                 {% endif %}
                             {% endif %}
                         </div>
-                        {% if form is defined and user.dn is not null %}
+                        <div class="col-sm-12">
+                            <ul class="nav nav-tabs">
+                                <li class="active">
+                                    <a href="#infosPrincipales" role="tab" data-toggle="tab"> Informations principales</a>
+                                </li>
+                                <li>
+                                    <a href="#description"role="tab" data-toggle="tab"> Description</a>
+                                </li>
+                                <li>
+                                    <a href="#exchange"role="tab" data-toggle="tab"> Exchange</a>
+                                </li></ul></div>
+                                {% if form is defined and user.dn is not null %}
                             {#{{ dump(adUser) }}#}
                             {{ form_start(form, { 'method': 'POST','attr': { 'role':'form'} }) }}
-
-                            <div class="col-sm-6">
-                                <div class="row">
+                        <div class="tab-content">
+                            <div id="infosPrincipales" class="col-sm-6 tab-pane active " role="tabpanel">
+                                <div  class="row">
                                     {% if form.name is defined %}
                                         <div class="col-sm-6">
                                             <div class="form-group has-feedback" id="field-name">
@@ -119,7 +130,7 @@
                                             </div>
                                         </div>
                                     {% endif %}
-                                    
+
                                     {% if form.login is defined %}
                                         <div class="col-sm-12">
                                             {{ form_label(form.login) }}
@@ -146,27 +157,18 @@
                                                                             </div>
                                                                         {% endif %}#}
 
-                                    {% if form.at is defined %}
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <div class="input-icon">
-                                                    <i class="fa fa-at"></i>
-                                                    {{ form_widget(form.at) }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    {% endif %}
+
 
                                     {#{% if form.login is defined %}#}
-                                        {#<div class="col-sm-12">#}
-                                            {#<div class="form-group has-feedback">#}
-                                                {#{{ form_label(form.login) }}#}
-                                                {#<div class="input-icon">#}
-                                                    {#<i class="fa fa-user"></i>#}
-                                                    {#{{ form_widget(form.login) }}#}
-                                                {#</div>#}
-                                            {#</div>#}
-                                        {#</div>#}
+                                    {#<div class="col-sm-12">#}
+                                    {#<div class="form-group has-feedback">#}
+                                    {#{{ form_label(form.login) }}#}
+                                    {#<div class="input-icon">#}
+                                    {#<i class="fa fa-user"></i>#}
+                                    {#{{ form_widget(form.login) }}#}
+                                    {#</div>#}
+                                    {#</div>#}
+                                    {#</div>#}
                                     {#{% endif %}#}
 
                                     {% if form.service is defined %}
@@ -175,6 +177,7 @@
                                             <div class="form-group">
                                                 {{ form_label(form.service) }}
                                                 {{ form_widget(form.service, {'attr': {'class': 'bs-select form-control service'}}) }}
+                                                {#{<select id="form_service" style="display: none"/>}#}
                                             </div>
                                         </div>
                                     {% endif %}
@@ -236,12 +239,44 @@
                                             </div>
                                         </div>
                                     {% endif %}
+
+
                                 </div>
+
 
                                 <!-- END FORM-->
                             </div>
-                            <div class="col-sm-6">
-                                <div class="row">
+                                <div role="tabpanel" class="col-sm-6 tab-pane" id="description">
+                                    <div class="row">
+                                        {% if form.title is defined %}
+
+                                            <div class="col-sm-12">
+                                                <div class="form-group has-feedback">
+                                                    {{ form_label(form.title) }}
+                                                    <div class="input-icon">
+                                                        <i class="fa fa-graduation-cap"></i>
+                                                        {{ form_widget(form.title) }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                        {% if form.description is defined %}
+
+                                            <div class="col-sm-12">
+                                                <div class="form-group has-feedback">
+                                                    {{ form_label(form.description) }}
+
+                                                    <div class="input-icon">
+                                                        <i class="fa fa-list-alt"></i>
+                                                        {{ form_widget(form.description) }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                            </div>
+                                    <div class="col-sm-12">
+                                        <hr>
+                                    </div>
                                     {% if form.address is defined %}
                                         <div class="col-sm-9">
                                             <div class="form-group has-feedback">
@@ -311,37 +346,44 @@
                                             </div>
                                         </div>
                                     {% endif %}
-                                    {% if form.title is defined %}
-
-                                        <div class="col-sm-12">
+                                    {% if form.picture is defined %}
+                                        <div class="col-sm-6">
                                             <div class="form-group has-feedback">
-                                                {{ form_label(form.title) }}
+                                                {{ form_label(form.picture) }}
                                                 <div class="input-icon">
-                                                    <i class="fa fa-graduation-cap"></i>
-                                                    {{ form_widget(form.title) }}
+                                                    <i class="fa fa-user"></i>
+                                                    {{ form_widget(form.picture) }}
                                                 </div>
                                             </div>
                                         </div>
                                     {% endif %}
-                                    {% if form.description is defined %}
 
-                                        <div class="col-sm-12">
-                                            <div class="form-group has-feedback">
-                                                {{ form_label(form.description) }}
-
-                                                <div class="input-icon">
-                                                    <i class="fa fa-list-alt"></i>
-                                                    {{ form_widget(form.description) }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    {% endif %}
 
                                 </div>
+                            <div role="tabpanel" class="col-sm-6 tab-pane" id="exchange">
+                                <div class="row">
+                            {% if form.at is defined %}
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="input-icon">
+                                            <i class="fa fa-at"></i>
+                                            {{ form_widget(form.at) }}
+                                            {#{<select id="form_at" style="display: none"/>}#}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
 
                                 <!-- END FORM-->
-                            </div>
-                            <div class="col-sm-12">
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+                 <div class="col-sm-12">
                                 <div class="row">
                                     <div class="col-md-3 col-offset-sm-3">
                                         <button type="submit" class="btn green btn-block" id="save-edit">Enregistrer
@@ -364,11 +406,6 @@
 
                         {% endif %}
 
-                    </div>
-
-                </div>
-            </div>
-        </div>
     </div>
 
 {% endblock %}
@@ -388,7 +425,6 @@
                     dnGroup += "#DnGroup:" + $(selected).val();
                 });
                 $("#user_edit_group").val(dnGroup);
-
                 $('#select-group').change(function () {
                     var dn = "";
                     $.each($(this).val(), function (i, group) {
@@ -399,8 +435,39 @@
                 });
             });
         </script>
+        <script>
+            var $at = $('#form_at');
+            $at.change(function() {
+                var $form = $(this).closest('form');
+                var data = {};
+                data[$at.attr('name')] = $at.val();
+                $.ajax({
+                    url : $form.attr('action'),
+                    type: $form.attr('method'),
+                    data : data,
+                    success: function(html) {
+                        $('#form_service').replaceWith(
+                            $(html).find('#form_service')
+                        );
+                    }
+                });
+            });
+        </script>
+        {#<script type="text/javascript">#}
+            {#$(function()#}
+            {#{#}
+                {#var divs = $(".formulaire-multiple"), speed = 400;#}
+{#//                divs.not("#infosPrincipales").hide();#}
 
+                {#$(".more").click(function()#}
+                {#{#}
+                    {#var idToShow = $(this).attr("href");#}
+                    {#divs.filter(":visible").hide();#}
+                    {#$(idToShow).show();#}
+
+                    {#return false;#}
+                {#});#}
+            {#});#}
+        {#</script>#}
 
     {% endblock %}
-
-

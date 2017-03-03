@@ -8,13 +8,14 @@ use FOS\UserBundle\Model\User as BaseUser;
 use Gedmo\Mapping\Annotation As Gedmo;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints\DateTime;
-
-
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * User
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="BackBundle\Repository\UserRepository")
+ * @Vich\Uploadable
  */
 class User extends BaseUser
 {
@@ -155,6 +156,20 @@ class User extends BaseUser
      *
      */
     protected $at;
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     *
+     * @Vich\UploadableField(mapping="image", fileNameProperty="picture")
+     *
+     * @var File
+     */
+    protected $path;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="picture", type="string", length=255)
+     */
+    protected $picture;
 
     /**
      * User constructor.
@@ -864,4 +879,41 @@ class User extends BaseUser
         return array('42consulting.fr', "42consulting.lu", "42mediatvcom.com", "42mediatvcom.fr", "42consulting.ma", "42consulting.nl");
 
     }
+
+    /**
+     * @return File
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * @param File $path
+     * @return User
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPicture()
+    {
+        return $this->picture;
+    }
+
+    /**
+     * @param string $picture
+     * @return User
+     */
+    public function setPicture($picture)
+    {
+        $this->picture = $picture;
+        return $this;
+    }
+
 }

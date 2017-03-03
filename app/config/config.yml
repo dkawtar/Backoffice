@@ -140,6 +140,13 @@ sensio_framework_extra:
     security:    { annotations: true }
     psr_message: { enabled: false }
 
+vich_uploader:
+        db_driver: orm
+        mappings:
+            image:
+                uri_prefix:         /backoffice-ad/web/img/logo
+                upload_destination: %kernel.root_dir%/../web/img/logo
+
 #NELMIO API DOC
 #nelmio_api_doc: ~
 
