@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\File\File;
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="BackBundle\Repository\UserRepository")
-// * @Vich\Uploadable
+//Vich\Uploadable
  */
 class User extends BaseUser
 {
@@ -157,19 +157,19 @@ class User extends BaseUser
      */
     protected $at;
     /**
-     * NOTE: This is not a mapped field of entity metadata, just a simple property.
-     *
-//     * @Vich\UploadableField(mapping="image", fileNameProperty="picture")
-     *
-     * @var File
-     */
-    protected $path;
-    /**
      * @var string
      *
      * @ORM\Column(name="picture", type="string", length=255)
      */
     protected $picture;
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     *
+    //   Vich\UploadableField(mapping="image", fileNameProperty="picture")
+     *
+     * @var File
+     */
+    protected $path;
 
     /**
      * User constructor.
