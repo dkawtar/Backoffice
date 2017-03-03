@@ -11,7 +11,7 @@
 !var/sessions/.gitkeep
 !var/cache/.gitkeep
 !var/logs/.gitkeep
-/var/SymfonyRequirements.php
+#/var/SymfonyRequirements.php
 
 # Parameters
 /app/config/parameters.yml
