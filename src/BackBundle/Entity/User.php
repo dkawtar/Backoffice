@@ -9,13 +9,13 @@ use Gedmo\Mapping\Annotation As Gedmo;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\HttpFoundation\File\File;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
+//use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * User
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="BackBundle\Repository\UserRepository")
- * @Vich\Uploadable
+// * @Vich\Uploadable
  */
 class User extends BaseUser
 {
@@ -159,7 +159,7 @@ class User extends BaseUser
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
-     * @Vich\UploadableField(mapping="image", fileNameProperty="picture")
+//     * @Vich\UploadableField(mapping="image", fileNameProperty="picture")
      *
      * @var File
      */

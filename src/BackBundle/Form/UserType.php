@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+
 class UserType extends AbstractType
 {
     /**
@@ -173,6 +174,7 @@ class UserType extends AbstractType
             )
             ->add('picture', FileType::class, array(
                 'label' => 'Photo de profil',
+                'mapped' => false,
                 'attr' => array(
                     'accept' => 'image/png, image/jpeg, image/gif'
                 )
