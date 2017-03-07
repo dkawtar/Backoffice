@@ -139,6 +139,16 @@
                                             </div>
                                         </div>
                                     {% endif %}
+                                    {% if form.site is defined %}
+
+                                        <div class="col-sm-6" style="display: none">
+                                            <div class="form-group">
+                                                {{ form_label(form.site) }}
+                                                {{ form_widget(form.site, {'attr': {'class': 'bs-select form-control site'}}) }}
+                                            </div>
+                                        </div>
+                                    {% endif %}
+
 
 
                                     {% if form.group is defined  and groups is defined %}
