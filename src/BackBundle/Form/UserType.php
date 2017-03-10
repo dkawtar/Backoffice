@@ -190,9 +190,7 @@ class UserType extends AbstractType
             ->add('picture', FileType::class, array(
                 'label' => 'Photo de profil',
                 'mapped' => false,
-                'attr' => array(
-                    'accept' => 'image/png, image/jpeg, image/gif'
-                )
+                'required' => false,
             ))
             ->add('phone', TextType::class, array(
                     'label' => 'Fix',

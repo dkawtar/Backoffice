@@ -386,7 +386,7 @@
                                                                     <th class="col-md-3">Nom</th>
                                                                     <th class="col-md-4">Email</th>
                                                                     <th class="col-md-4">Ajouter</th>
-                                                                    <th class="col-md-1">Supprimer</th>
+                                                                    {#<th class="col-md-1">Supprimer</th>#}
                                                                 </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -413,19 +413,19 @@
                                                                                             class="glyphicon glyphicon-plus"></i>
                                                                                     Add</a>
                                                                             </td>
-                                                                            <td class="col-md-1 text-center">
-                                                                                <a href=""
-                                                                                   class="btn btn-xs red btn-outline btn-circle btn-remove"
-                                                                                   id="{{ userName }}"
-                                                                                   data-action="remove-group"
-                                                                                   data-groupName="{{ groupTitle }}"
-                                                                                   data-dnGroup="{{ ldap_service.getData(group,"distinguishedname") }}"
-                                                                                   data-dnUser="{{ userMemberDn }}"
-                                                                                   data-line="line-{{ groupTitle }}-{{ userName }}-{{ keyUser }}"><i
-                                                                                            class="fa fa-trash-o fa-fw"></i>
-                                                                                    Supp</a>
+                                                                            {#<td class="col-md-1 text-center">#}
+                                                                                {#<a href=""#}
+                                                                                   {#class="btn btn-xs red btn-outline btn-circle btn-remove"#}
+                                                                                   {#id="{{ userName }}"#}
+                                                                                   {#data-action="remove-group"#}
+                                                                                   {#data-groupName="{{ groupTitle }}"#}
+                                                                                   {#data-dnGroup="{{ ldap_service.getData(group,"distinguishedname") }}"#}
+                                                                                   {#data-dnUser="{{ userMemberDn }}"#}
+                                                                                   {#data-line="line-{{ groupTitle }}-{{ userName }}-{{ keyUser }}"><i#}
+                                                                                            {#class="fa fa-trash-o fa-fw"></i>#}
+                                                                                    {#Supp</a>#}
 
-                                                                            </td>
+                                                                            {#</td>#}
                                                                         </tr>
                                                                     {% endif %}
                                                                 {% endfor %}

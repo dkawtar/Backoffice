@@ -23,6 +23,8 @@ class AppKernel extends Kernel
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new FOS\RestBundle\FOSRestBundle(),
+            new JMS\SerializerBundle\JMSSerializerBundle(),
 //            new \Vich\UploaderBundle\VichUploaderBundle()
 //            new FOS\RestBundle\FOSRestBundle(),
 //            new JMS\SerializerBundle\JMSSerializerBundle(),
