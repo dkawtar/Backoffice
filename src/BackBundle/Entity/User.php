@@ -159,13 +159,13 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="picture", type="string", length=255)
+     * @ORM\Column(name="picture", type="string", length=255, nullable=true)
      */
     protected $picture;
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
-    //   Vich\UploadableField(mapping="image", fileNameProperty="picture")
+    //   Vich\UploadableField(mapping="image", fileNameProperty="picture", nullable=true)
      *
      * @var File
      */
