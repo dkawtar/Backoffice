@@ -191,7 +191,8 @@ class UserType extends AbstractType
                 'label' => 'Photo de profil',
                 'mapped' => false,
                 'required' => false,
-            ))
+            )
+            )
             ->add('phone', TextType::class, array(
                     'label' => 'Fix',
                     'required' => false,
