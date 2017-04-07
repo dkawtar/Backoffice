@@ -110,6 +110,17 @@ fos_user:
                 address: you@example.com
                 sender_name: You
 
+framework:
+    # ...
+    serializer:
+        enabled: true
+
+
+jms_serializer:
+    visitors:
+        json:
+            options: [JSON_UNESCAPED_SLASHES, JSON_UNESCAPED_UNICODE]
+
 #Extension Soft Doctrine    
 stof_doctrine_extensions:
     orm:

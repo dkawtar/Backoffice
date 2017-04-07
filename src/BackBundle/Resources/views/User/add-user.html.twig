@@ -4,6 +4,8 @@
       {{ parent() }}
       {% stylesheets
       'bundles/back/theme/assets/global/plugins/bootstrap-select/css/bootstrap-select.min.css'
+      'bundles/back/theme/assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css'
+
       filter='cssrewrite' %}
       <link rel="stylesheet" href="{{ asset_url }}"/>
       {% endstylesheets %}
@@ -23,343 +25,374 @@
 {% endblock action_toolbar %}
 
 {% block back_body %}
-<div class="row" id="">
-    <div class="col-md-12 col-sm-12 margin-top-20">
-        <!-- BEGIN Portlet PORTLET-->
-        <div class="portlet">
-            <div class="portlet-title">
-                <div class="caption">
+    <div class="row" id="">
+        <div class="col-md-12 col-sm-12 margin-top-20">
+            <!-- BEGIN Portlet PORTLET-->
+            <div class="portlet">
+                <div class="portlet-title">
+                    <div class="caption">
                         <span class="caption-subject font-green-sharp bold uppercase"> <i
                                     class="icon-plus font-green-sharp"></i> Utilisateur</span>
-                    <span class="caption-helper">Ajout</span>
+                        <span class="caption-helper">Ajout</span>
+                    </div>
+
+                    {#<div class="tools">#}
+                    {#<a href="javascript:;" class="collapse" data-original-title="Réduire" title="Réduire"> </a>#}
+                    {#<a href="javascript:;" class="reload" data-original-title="Recharger" title="Recharger"> </a>#}
+                    {#<a href="" class="fullscreen" data-original-title="Plein écran" title="Plein écran"> </a>#}
+                    {#<a href="javascript:;" class="remove" data-original-title="Fermer" title="Fermer"> </a>#}
+                    {#</div>#}
+
                 </div>
+                <div class="portlet-body form">
 
-                {#<div class="tools">#}
-                {#<a href="javascript:;" class="collapse" data-original-title="Réduire" title="Réduire"> </a>#}
-                {#<a href="javascript:;" class="reload" data-original-title="Recharger" title="Recharger"> </a>#}
-                {#<a href="" class="fullscreen" data-original-title="Plein écran" title="Plein écran"> </a>#}
-                {#<a href="javascript:;" class="remove" data-original-title="Fermer" title="Fermer"> </a>#}
-                {#</div>#}
+                    {% include('BackBundle:Includes:alert.html.twig') %}
 
-            </div>
-            <div class="portlet-body form">
-
-                {% include('BackBundle:Includes:alert.html.twig') %}
-
-                <!-- BEGIN FORM-->
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="alert alert-danger display-hide" id="div-message-error" role="alert">
-                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                            <span class="fa fa-warning" aria-hidden="true"></span>
-                            <span class="sr-only">Error:</span>
-                            <span class="message-error"></span>
+                    <!-- BEGIN FORM-->
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="alert alert-danger display-hide" id="div-message-error" role="alert">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <span class="fa fa-warning" aria-hidden="true"></span>
+                                <span class="sr-only">Error:</span>
+                                <span class="message-error"></span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-sm-12">
-                        <ul class="nav nav-tabs">
-                            <li class="active">
-                                <a href="#infosPrincipales" role="tab" data-toggle="tab"> Informations principales</a>
-                            </li>
-                            <li>
-                                <a href="#description" role="tab" data-toggle="tab"> Description</a>
-                            </li>
-                            <li>
-                                <a href="#exchange" role="tab" data-toggle="tab"> Exchange</a>
-                            </li>
-                            <li>
-                                <a href="#groupes" role="tab" data-toggle="tab"> Groupes</a>
-                            </li>
-                        </ul>
-                    </div>
-                    {% if form is defined %}
-                        {{ form_start(form, { 'method': 'POST','attr': { 'role':'form'} }) }}
-                        <div class="tab-content">
-                            <div id="infosPrincipales" class="col-sm-6 tab-pane active " role="tabpanel">
-                                <div class="row">
-                                    {% if form.name is defined %}
-                                        <div class="col-sm-6">
-                                            <div class="form-group has-feedback">
-                                                {{ form_label(form.name) }}
-                                                <div class="input-icon">
-                                                    <i class="fa fa-user"></i>
-                                                    {{ form_widget(form.name) }}
+                        <div class="col-sm-12">
+                            <ul class="nav nav-tabs">
+                                <li class="active">
+                                    <a href="#infosPrincipales" role="tab" data-toggle="tab"> Informations
+                                        principales</a>
+                                </li>
+                                <li>
+                                    <a href="#description" role="tab" data-toggle="tab"> Description</a>
+                                </li>
+                                <li>
+                                    <a href="#exchange" role="tab" data-toggle="tab"> Exchange</a>
+                                </li>
+                                <li>
+                                    <a href="#groupes" role="tab" data-toggle="tab"> Groupes</a>
+                                </li>
+                            </ul>
+                        </div>
+                        {% if form is defined %}
+                            {{ form_start(form, { 'method': 'POST','attr': { 'role':'form'} }) }}
+                            <div class="tab-content">
+                                <div id="infosPrincipales" class="col-sm-12 tab-pane active " role="tabpanel">
+                                    <div class="row">
+                                        {% if form.name is defined %}
+                                            <div class="col-sm-6">
+                                                <div class="form-group has-feedback">
+                                                    {{ form_label(form.name) }}
+                                                    <div class="input-icon">
+                                                        <i class="fa fa-user"></i>
+                                                        {{ form_widget(form.name) }}
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    {% endif %}
-                                    {% if form.firstName is defined %}
-
-                                        <div class="col-sm-6">
-                                            <div class="form-group has-feedback">
-                                                {{ form_label(form.firstName) }}
-                                                <div class="input-icon">
-                                                    <i class="fa fa-user"></i>
-                                                    {{ form_widget(form.firstName) }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    {% endif %}
-
-
-                                    {% if form.login is defined %}
-
-
-                                        <div class="form-group has-feedback" id="field-email">
+                                        {% endif %}
+                                        {% if form.firstName is defined %}
 
                                             <div class="col-sm-6">
-                                                {{ form_label(form.login) }}
-                                                <div class="input-icon">
-                                                    <i class="fa fa-user-secret"></i>
-                                                    {{ form_widget(form.login) }}
+                                                <div class="form-group has-feedback">
+                                                    {{ form_label(form.firstName) }}
+                                                    <div class="input-icon">
+                                                        <i class="fa fa-user"></i>
+                                                        {{ form_widget(form.firstName) }}
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    {% endif %}
+                                        {% endif %}
 
 
-                                    {#{% if form.login is defined %}#}
-                                    {#<div class="col-sm-12">#}
-                                    {#<div class="form-group has-feedback">#}
-                                    {#{{ form_label(form.login) }}#}
-                                    {#<div class="input-icon">#}
-                                    {#<i class="fa fa-user"></i>#}
-                                    {#{{ form_widget(form.login) }}#}
-                                    {#</div>#}
-                                    {#</div>#}
-                                    {#</div>#}
-                                    {#{% endif %}#}
-
-                                    {% if form.service is defined %}
-
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                {{ form_label(form.service) }}
-                                                {{ form_widget(form.service, {'attr': {'class': 'bs-select form-control service'}}) }}
-                                            </div>
-                                        </div>
-                                    {% endif %}
+                                        {% if form.login is defined %}
 
 
-                                    {% if form.group is defined  and groups is defined %}
-                                        <div class="col-sm-6">
-                                            <div class="form-group has-feedback">
-                                                <label class="control-label">Groupes</label>
+                                            <div class="form-group has-feedback" id="field-email">
 
-                                                <select class="bs-select form-control" id="select-group" multiple>
-                                                    {% for  key, tab in groups %}
-                                                        {% for  group in tab %}
-                                                            {% if group|length >1 %}
-                                                                {#{% if  keyUser != "count" or keyUser =="0" %}#}
-                                                                {% set titre =ldap_service.getData(group,"cn") %}
-                                                                {% set dn =ldap_service.getData(group,"distinguishedname") %}
-                                                                {% set dnGroup = dn |split(','~ldap_dn) %}
-
-                                                                <option value="{{ attribute(dnGroup,0) }}">{{ titre }}</option>
-                                                            {% endif %}
-
-                                                        {% endfor %}
-                                                    {% endfor %}
-                                                </select>
-                                            </div>
-                                        </div>
-                                        {{ form_widget(form.group) }}
-                                    {% endif %}
-
-
-
-                                    {% if form.password is defined %}
-                                        <div class="col-sm-12">
-                                            <div class="form-group has-feedback">
-                                                {{ form_label(form.password) }}
-                                                <div class="input-icon">
-                                                    <i class="fa fa-unlock-alt form-control-feedback"></i>
-                                                    {{ form_widget(form.password) }}
+                                                <div class="col-sm-6">
+                                                    {{ form_label(form.login) }}
+                                                    <div class="input-icon">
+                                                        <i class="fa fa-user-secret"></i>
+                                                        {{ form_widget(form.login) }}
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        {% endif %}
 
-                                        <div class="col-sm-12">
-                                            <div class="form-group has-feedback">
-                                                <label for="confirm-password " class="required">Confirmation mot
-                                                    de
-                                                    passe</label>
 
-                                                <div class="input-icon">
-                                                    <i class="fa fa-unlock-alt form-control-feedback"></i>
-                                                    <input type="password" placeholder="Confirmation mot de passe"
-                                                           class="form-control input-required confirm-password"
-                                                           name="confirm-password" autocomplete="off" required>
+                                        {#{% if form.login is defined %}#}
+                                        {#<div class="col-sm-12">#}
+                                        {#<div class="form-group has-feedback">#}
+                                        {#{{ form_label(form.login) }}#}
+                                        {#<div class="input-icon">#}
+                                        {#<i class="fa fa-user"></i>#}
+                                        {#{{ form_widget(form.login) }}#}
+                                        {#</div>#}
+                                        {#</div>#}
+                                        {#</div>#}
+                                        {#{% endif %}#}
+
+                                        {% if form.service is defined %}
+
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    {{ form_label(form.service) }}
+                                                    {{ form_widget(form.service, {'attr': {'class': 'bs-select form-control service'}}) }}
                                                 </div>
                                             </div>
-                                        </div>
-                                    {% endif %}
-                                </div>
+                                        {% endif %}
+                                        {% if form.site is defined %}
 
-                                <!-- END FORM-->
-                            </div>
-                            <div role="tabpanel" class="col-sm-6 tab-pane" id="description">
-                                <div class="row">
-                                    {% if form.title is defined %}
-
-                                        <div class="col-sm-12">
-                                            <div class="form-group has-feedback">
-                                                {{ form_label(form.title) }}
-                                                <div class="input-icon">
-                                                    <i class="fa fa-graduation-cap"></i>
-                                                    {{ form_widget(form.title) }}
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    {{ form_label(form.site) }}
+                                                    {{ form_widget(form.site, {'attr': {'class': 'bs-select form-control site'}}) }}
                                                 </div>
                                             </div>
-                                        </div>
-                                    {% endif %}
-                                    {% if form.description is defined %}
+                                        {% endif %}
 
-                                        <div class="col-sm-12">
-                                            <div class="form-group has-feedback">
-                                                {{ form_label(form.description) }}
 
-                                                <div class="input-icon">
-                                                    <i class="fa fa-list-alt"></i>
-                                                    {{ form_widget(form.description) }}
+
+                                        {% if form.password is defined %}
+                                            <div class="col-sm-12">
+                                                <div class="form-group has-feedback">
+                                                    {{ form_label(form.password) }}
+                                                    <div class="input-icon">
+                                                        <i class="fa fa-unlock-alt form-control-feedback"></i>
+                                                        {{ form_widget(form.password) }}
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    {% endif %}
-                                    <div class="col-sm-12">
-                                        <hr>
+
+                                            <div class="col-sm-12">
+                                                <div class="form-group has-feedback">
+                                                    <label for="confirm-password " class="required">Confirmation mot
+                                                        de
+                                                        passe</label>
+
+                                                    <div class="input-icon">
+                                                        <i class="fa fa-unlock-alt form-control-feedback"></i>
+                                                        <input type="password" placeholder="Confirmation mot de passe"
+                                                               class="form-control input-required confirm-password"
+                                                               name="confirm-password" autocomplete="off" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endif %}
                                     </div>
-                                    {% if form.address is defined %}
-                                        <div class="col-sm-9">
-                                            <div class="form-group has-feedback">
-                                                {{ form_label(form.address) }}
-                                                <div class="input-icon">
-                                                    <i class="fa fa-building-o"></i>
-                                                    {{ form_widget(form.address) }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    {% endif %}
-                                    {% if form.postalCode is defined %}
-                                        <div class="col-sm-3">
-                                            <div class="form-group has-feedback">
-                                                {{ form_label(form.postalCode) }}
-                                                <div class="input-icon">
-                                                    <i class="fa fa-location-arrow"></i>
-                                                    {{ form_widget(form.postalCode) }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    {% endif %}
-                                    {% if form.city is defined %}
-                                        <div class="col-sm-6">
-                                            <div class="form-group has-feedback">
-                                                {{ form_label(form.city) }}
-                                                <div class="input-icon">
-                                                    <i class="fa fa-home"></i>
-                                                    {{ form_widget(form.city) }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    {% endif %}
-                                    {% if form.country is defined %}
-                                        <div class="col-sm-6">
-                                            <div class="form-group has-feedback">
-                                                {{ form_label(form.country) }}
-                                                <div class="input-icon">
-                                                    <i class="fa fa-globe"></i>
-                                                    {{ form_widget(form.country) }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    {% endif %}
-                                    {% if form.phone is defined %}
-                                        <div class="col-sm-6">
-                                            <div class="form-group has-feedback">
-                                                {{ form_label(form.phone) }}
 
-                                                <div class="input-icon">
-                                                    <i class="fa fa-phone"></i>
-                                                    {{ form_widget(form.phone) }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    {% endif %}
+                                    <!-- END FORM-->
+                                </div>
+                                <div role="tabpanel" class="col-sm-12 tab-pane" id="description">
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <div class="row">
+                                                {% if form.title is defined %}
 
-                                    {% if form.mobile is defined %}
-                                        <div class="col-sm-6">
-                                            <div class="form-group has-feedback">
-                                                {{ form_label(form.mobile) }}
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group has-feedback">
+                                                            {{ form_label(form.title) }}
+                                                            <div class="input-icon">
+                                                                <i class="fa fa-graduation-cap"></i>
+                                                                {{ form_widget(form.title) }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                                {% if form.description is defined %}
 
-                                                <div class="input-icon">
-                                                    <i class="fa fa-mobile"></i>
-                                                    {{ form_widget(form.mobile) }}
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group has-feedback">
+                                                            {{ form_label(form.description) }}
+
+                                                            <div class="input-icon">
+                                                                <i class="fa fa-list-alt"></i>
+                                                                {{ form_widget(form.description) }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                                <div class="col-sm-12">
+                                                    <hr>
                                                 </div>
+                                                {% if form.address is defined %}
+                                                    <div class="col-sm-9">
+                                                        <div class="form-group has-feedback">
+                                                            {{ form_label(form.address) }}
+                                                            <div class="input-icon">
+                                                                <i class="fa fa-building-o"></i>
+                                                                {{ form_widget(form.address) }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                                {% if form.postalCode is defined %}
+                                                    <div class="col-sm-3">
+                                                        <div class="form-group has-feedback">
+                                                            {{ form_label(form.postalCode) }}
+                                                            <div class="input-icon">
+                                                                <i class="fa fa-location-arrow"></i>
+                                                                {{ form_widget(form.postalCode) }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                                {% if form.city is defined %}
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group has-feedback">
+                                                            {{ form_label(form.city) }}
+                                                            <div class="input-icon">
+                                                                <i class="fa fa-home"></i>
+                                                                {{ form_widget(form.city) }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                                {% if form.country is defined %}
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group has-feedback">
+                                                            {{ form_label(form.country) }}
+                                                            <div class="input-icon">
+                                                                <i class="fa fa-globe"></i>
+                                                                {{ form_widget(form.country) }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                                {% if form.phone is defined %}
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group has-feedback">
+                                                            {{ form_label(form.phone) }}
+
+                                                            <div class="input-icon">
+                                                                <i class="fa fa-phone"></i>
+                                                                {{ form_widget(form.phone) }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+
+                                                {% if form.mobile is defined %}
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group has-feedback">
+                                                            {{ form_label(form.mobile) }}
+
+                                                            <div class="input-icon">
+                                                                <i class="fa fa-mobile"></i>
+                                                                {{ form_widget(form.mobile) }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+
                                             </div>
                                         </div>
-                                    {% endif %}
-                                    {% if form.picture is defined %}
-                                        <div class="col-sm-6">
-                                            <div class="form-group has-feedback">
-                                                {{ form_label(form.picture) }}
-                                                <div class="input-icon">
-                                                    <i class="fa fa-user"></i>
-                                                    {{ form_widget(form.picture) }}
+                                        <div class="col-sm-4 text-center">
+                                            {% if form.picture is defined %}
+
+                                                <div class="form-group">
+                                                    {{ form_label(form.picture) }}
+                                                </div>
+                                                
+                                                <div class="fileinput fileinput-new " data-provides="fileinput">
+                                                    <div class=" fileinput-new thumbnail">
+                                                        <img src="{{ asset('assets/img/no_image_portrait.png') }}"
+                                                             alt="" class="image-responsive"/></div>
+                                                    <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                                                    <div>
+                                                            <span class="btn default btn-file">
+                                                                <span class="fileinput-new">  Image Profil </span>
+                                                                <span class="fileinput-exists"> Changer </span>
+                                                                {{ form_widget(form.picture) }}</span>
+                                                        <a href="javascript:;" class="btn red fileinput-exists"
+                                                           data-dismiss="fileinput"> Supprimer </a>
+                                                    </div>
+                                                </div>
+
+
+                                            {% endif %}
+
+                                        </div>
+                                    </div>
+                                    <!-- END FORM-->
+                                </div>
+                                <div role="tabpanel" class="col-sm-6 tab-pane" id="exchange">
+                                    <div class="row">
+                                        {% if form.at is defined %}
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <div class="input-icon">
+                                                        <i class="fa fa-at"></i>
+                                                        {{ form_widget(form.at) }}
+                                                        {#{<select id="form_at" style="display: none"/>}#}
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    {% endif %}
+                                        {% endif %}
+                                    </div>
 
 
                                 </div>
-                                <!-- END FORM-->
+                                <div role="tabpanel" class="col-sm-6 tab-pane" id="groupes">
+                                    <div class="row">
+
+                                        {% if form.group is defined  and groups is defined %}
+                                            <div class="col-sm-6">
+                                                <div class="form-group has-feedback">
+                                                    <label class="control-label">Groupes</label>
+
+                                                    <select class="bs-select form-control" id="select-group" multiple>
+                                                        {% for  key, tab in groups %}
+                                                            {% for  group in tab %}
+                                                                {% if group|length >1 %}
+                                                                    {#{% if  keyUser != "count" or keyUser =="0" %}#}
+                                                                    {% set titre =ldap_service.getData(group,"cn") %}
+                                                                    {% set dn =ldap_service.getData(group,"distinguishedname") %}
+                                                                    {% set dnGroup = dn |split(','~ldap_dn) %}
+
+                                                                    <option value="{{ attribute(dnGroup,0) }}">{{ titre }}</option>
+                                                                {% endif %}
+
+                                                            {% endfor %}
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            {{ form_widget(form.group) }}
+                                        {% endif %}
+                                    </div>
+                                </div>
+
                             </div>
-                            <div role="tabpanel" class="col-sm-6 tab-pane" id="exchange">
+                            <div class="col-sm-12">
+                                <hr>
                                 <div class="row">
-                                    {% if form.at is defined %}
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <div class="input-icon">
-                                                    <i class="fa fa-at"></i>
-                                                    {{ form_widget(form.at) }}
-                                                    {#{<select id="form_at" style="display: none"/>}#}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    {% endif %}
-                                </div>
-
-
-                            </div>
-
-                        </div>
-
-                        <div class="col-sm-12">
-                            <hr>
-                            <div class="row">
-                                <div class="col-md-3 col-offset-sm-3">
-                                    <button type="submit" class="btn green btn-block btn-add-user">Envoyer</button>
-                                </div>
-                                <div class="col-md-3">
-                                    <a href="{{ path('back_user_list') }}" class="btn default btn-block">Annuler</a>
+                                    <div class="col-md-3 col-offset-sm-3">
+                                        <button type="submit" class="btn green btn-block btn-add-user">Envoyer</button>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <a href="{{ path('back_user_list') }}" class="btn default btn-block">Annuler</a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        {{ form_end(form) }}
-                    {% endif %}
+                            {{ form_end(form) }}
+                        {% endif %}
+                    </div>
                 </div>
+
             </div>
-
         </div>
+
     </div>
-
-
-    {% endblock %}
+{% endblock %}
     {% block javascripts %}
         {{ parent() }}
         {% javascripts
         "bundles/back/theme/assets/global/plugins/bootstrap-select/js/bootstrap-select.min.js"
         "bundles/back/theme/assets/pages/scripts/components-bootstrap-select.js"
+        "bundles/back/theme/assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js"
         "bundles/back/js/user/add.js" %}
         <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
@@ -395,5 +428,3 @@
             });
         </script>
     {% endblock %}
-
-

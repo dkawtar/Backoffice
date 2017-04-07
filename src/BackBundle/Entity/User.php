@@ -129,6 +129,11 @@ class User extends BaseUser
      * @var string
      *
      */
+    protected $site;
+    /**
+     * @var string
+     *
+     */
     protected $group;
     /**
      * @var string
@@ -915,5 +920,24 @@ class User extends BaseUser
         $this->picture = $picture;
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getSite()
+    {
+        return $this->site;
+    }
+
+    /**
+     * @param string $site
+     * @return User
+     */
+    public function setSite($site)
+    {
+        $this->site = $site;
+        return $this;
+    }
+
 
 }
