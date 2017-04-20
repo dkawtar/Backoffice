@@ -2,7 +2,6 @@
 
 namespace BackBundle\Entity;
 
-
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 use Gedmo\Mapping\Annotation As Gedmo;
@@ -129,6 +128,11 @@ class User extends BaseUser
      * @var string
      *
      */
+    protected $site;
+    /**
+     * @var string
+     *
+     */
     protected $group;
     /**
      * @var string
@@ -159,7 +163,7 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="picture", type="string", length=255)
+     * @ORM\Column(name="picture", type="string", length=255, nullable=true)
      */
     protected $picture;
     /**
@@ -170,6 +174,31 @@ class User extends BaseUser
      * @var File
      */
     protected $path;
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="desactivate", type="boolean",nullable=true)
+     */
+    protected $disabled;
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="debloq", type="boolean", nullable=true)
+     */
+    protected $debloq;
+//    /**
+//     * @var string
+//     *
+//     * @ORM\column(name="email", type="string")
+//     */
+//    protected $email;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="proxyadresse", type="string", nullable=true)
+     */
+    protected $proxyadresse;
 
     /**
      * User constructor.
@@ -873,6 +902,12 @@ class User extends BaseUser
         return array("Saint-Mande", "Luxembourg", "Issy-Les-Moulineaux", "Maroc");
 
     }
+    public static function AT()
+    {
+        return array();
+
+    }
+
 
     public static function SMTP()
     {
@@ -915,5 +950,97 @@ class User extends BaseUser
         $this->picture = $picture;
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getSite()
+    {
+        return $this->site;
+    }
+
+    /**
+     * @param string $site
+     * @return User
+     */
+    public function setSite($site)
+    {
+        $this->site = $site;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDisabled()
+    {
+        return $this->disabled;
+    }
+
+    /**
+     * @param bool $disabled
+     * @return User
+     */
+    public function setDisabled($disabled)
+    {
+        $this->disabled = $disabled;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDebloq()
+    {
+        return $this->debloq;
+    }
+
+    /**
+     * @param bool $debloq
+     * @return User
+     */
+    public function setDebloq($debloq)
+    {
+        $this->debloq = $debloq;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProxyadresse()
+    {
+        return $this->proxyadresse;
+    }
+
+    /**
+     * @param string $proxyadresse
+     * @return User
+     */
+    public function setProxyadresse(string $proxyadresse)
+    {
+        $this->proxyadresse = $proxyadresse;
+        return $this;
+    }
+
+//    /**
+//     * @return string
+//     */
+//    public function getEmail(): string
+//    {
+//        return $this->email;
+//    }
+
+//    /**
+//     * @param string $email
+//     */
+//    public function setEmail(string $email)
+//    {
+//        $this->email = $email;
+//    }
+
+
+
+
 
 }

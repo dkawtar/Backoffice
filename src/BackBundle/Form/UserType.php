@@ -1,8 +1,12 @@
 <?php
 
 namespace BackBundle\Form;
-
+//use BackBundle\Entity\User;
+use BackBundle\Entity\User;
+use BackBundle\Repository\UserRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -11,8 +15,10 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
 class UserType extends AbstractType
 {
     /**
@@ -134,16 +140,18 @@ class UserType extends AbstractType
                     ),
 
                 )
-            )->add('service', ChoiceType::class, array(
-                    'label' => 'Service',
+            )
+            ->add('site', ChoiceType::class, array(
+                    'label' => 'Site',
                     'choices' => array(
-                        "42Consulting Paris" => "Saint-Mandé",
-                        "42Consulting Lux" => "Luxembourg",
-                        "42MediaTelecom" => "Issy-Les-Moulineaux",
+                        "Saint-Mandé" => "Saint-Mandé",
+                        "Luxembourg" => "Luxembourg",
+                        "Issy-Les-Moulineaux" => "Issy-Les-Moulineaux",
+                        "Maroc" => "Maroc"
                     ),
                     'attr' => array(
-                        'class' => 'form-control service',
-                        'placeholder' => 'service',
+                        'class' => 'form-control site',
+                        'placeholder' => 'site',
                     ),
 
                 )
@@ -156,29 +164,12 @@ class UserType extends AbstractType
                     ),
                 )
             )
-            ->add('at', ChoiceType::class, array(
-                    'label' => ' ',
-                    'choices' => array(
-                        "42consulting.fr" => "42consulting.fr",
-                        "42consulting.lu" => "42consulting.lu",
-                        "42mediatvcom.fr" => "42mediatvcom.fr",
-                        "42consulting.ma" => "42consulting.ma",
-                        "42consulting.nl" => "42consulting.nl",
-                    ),
-                    'attr' => array(
-                        'class' => 'form-control',
-                        'placeholder' => 'service',
-                    ),
-
+            ->add('picture', FileType::class, array(
+                    'label' => 'Photo de profil',
+                    'mapped' => false,
+                    'required' => false,
                 )
             )
-            ->add('picture', FileType::class, array(
-                'label' => 'Photo de profil',
-                'mapped' => false,
-                'attr' => array(
-                    'accept' => 'image/png, image/jpeg, image/gif'
-                )
-            ))
             ->add('phone', TextType::class, array(
                     'label' => 'Fix',
                     'required' => false,
@@ -189,7 +180,33 @@ class UserType extends AbstractType
                     ),
 
                 )
-            )->add('mobile', TextType::class, array(
+            )
+            ->add('disabled', CheckboxType::class, array(
+                'label' => 'Désactiver',
+                'required' => false,
+//                'attr' => array(
+//                    'class' => 'control-label',
+//                    'placeholder' => 'Désactiver'
+//
+//                ),
+
+            ))
+            ->add('proxyadresse' , TextType::class, array(
+                'label' => 'SMTP',
+                'required' => false,
+                'attr' => array(
+                    'class' => 'form-control',
+                    'autocomplete' => 'off'
+                ),
+            ))
+            ->add('debloq', CheckboxType::class, array(
+                'label' => 'Déblocker',
+                'required' => false,
+//                'attr' => array(
+//                    'class' => 'control-label',
+//                    'placeholder' => 'Déblocker'
+//                ),
+            ))->add('mobile', TextType::class, array(
                     'label' => 'Mobile',
                     'required' => false,
                     'attr' => array(
@@ -200,7 +217,127 @@ class UserType extends AbstractType
 
                 )
             );
+        $builder
+            ->add('at',ChoiceType::class,array(
+                'label' => 'Mail',
+                'required' => false,
+                'choices'=>array(
+                    '42consulting.fr'=>'1',
+                    '42consulting.lu'=>'2',
+                    '42mediatvcom.fr'=>'3',
+                    '42consulting.ma'=>'4',
+                    '42consulting.nl'=>'5',
+                ),
+                'attr' => array(
+                    'class' => 'form-control',
+                    'placeholder' => 'service',
+                ),
+            ));
+
+
+//        $addServiceListener = function(FormEvent $event){
+//            $form = $event->getForm();
+//            $data = $event->getData();
+//
+////            $services= array();
+//
+//            switch($data[User::AT()]){
+//                case '1': // If at == '1'
+//                    $services = array(
+//                        '42Consulting Paris'=>'Saint-Mandé',
+////                        'choice1_2'=>'1_2',
+////                        'choice1_3'=>'1_3',
+//                    );
+//                    break;
+//                case '2': // If at == '2'
+//                    $services = array(
+//                        '42Consulting Lux'=>'Luxembourg',
+////                        'choice2_2'=>'2_2',
+////                        'choice2_3'=>'2_3',
+//                    );
+//                    break;
+//                case '3': // If at == '3'
+//                    $services = array(
+//                        '42MediaTelecom'=>'Issy-Les-Moulineaux',
+////                        'choice3_2'=>'3_2',
+////                        'choice3_3'=>'3_3',
+//                    );
+//                    break;
+//                case '4': // If at == '4'
+//                    $services = array(
+//                        '42Consulting Maroc'=>'Casablanca',
+//                    );
+//                break;
+//            }
+
+//           ->add('service',ChoiceType::class,array('choices'=>array(
+//                            "42Consulting Paris" => "Saint-Mandé",
+//                            "42Consulting Lux" => "Luxembourg",
+//                            "42MediaTelecom" => "Issy-Les-Moulineaux",
+//                            "42Consulting Maroc" => "Casablanca",
+//                            "42Consulting Lux" => "Luxembourg",
+//
+//            ),));
     }
+//        $builder->addEventListener(FormEvents::PRE_SET_DATA, $addServiceListener);
+//        $builder->addEventListener(FormEvents::PRE_SUBMIT, $addServiceListener);
+//        $builder
+//            ->add('at', ChoiceType::class, array(
+//                    'label' => ' ',
+//                    'choices' =>array(
+//                        "42consulting.fr" => "42consulting.fr",
+//                        "42consulting.lu" => "42consulting.lu",
+//                        "42mediatvcom.fr" => "42mediatvcom.fr",
+//                        "42consulting.ma" => "42consulting.ma",
+//                        "42consulting.nl" => "42consulting.nl",
+//                    ),
+//                    'attr' => array(
+//                        'class' => 'form-control',
+//                        'placeholder' => 'service',
+//                    ),
+//
+//
+//                )
+//            );
+//        $formModifier = function (FormInterface $form, User $at= null) {
+//            $services = null === $at ? array() :$at->getService();
+//
+//            $form->add('service', ChoiceType::class, array(
+//                        'label' => 'Service',
+//                        'choices' => array(
+//                            "42Consulting Paris" => "Saint-Mandé",
+//                            "42Consulting Lux" => "Luxembourg",
+//                            "42MediaTelecom" => "Issy-Les-Moulineaux",
+//                            "42Consulting Maroc" => "Casablanca"
+//                        ),
+//                        'attr' => array(
+//                            'class' => 'form-control service',
+//                            'placeholder' => 'service',
+//                        ),
+//
+//
+//                    )
+//                );
+//
+//        };
+//        $builder->addEventListener(
+//            FormEvents::PRE_SET_DATA,
+//            function (FormEvent $event) use ($formModifier) {
+//                $data = $event->getData();
+//
+//                $formModifier($event->getForm(), $data-);
+//            }
+//        );
+//
+//        $builder->get('at')->addEventListener(
+//            FormEvents::POST_SUBMIT,
+//            function (FormEvent $event) use ($formModifier) {
+//                $at = $event->getForm()->getData();
+//
+//                $formModifier($event->getForm()->getParent(), $at);
+//            }
+//        );
+
 
     /**
      * @param OptionsResolver $resolver
@@ -212,3 +349,4 @@ class UserType extends AbstractType
         ));
     }
 }
+

@@ -171,12 +171,28 @@
                                     {#</div>#}
                                     {#{% endif %}#}
 
-                                    {% if form.service is defined %}
+                                    {#{% if form.service is defined %}#}
+
+                                        <div class="col-sm-6">
+                                        <label>Service</label>
+                                            <div class="form-group">
+                                          <select class="form-control" id="user_service_edit">
+                                                        <option value="">-  -</option>
+                                                        <option value="42Consulting Paris"></option>
+                                                        <option value="42Consulting Lux"></option>
+                                                        <option value="42MediaTelecom"></option>
+                                                        <option value="42Consulting Maroc"></option>
+                                                        <option value="42Consulting Lux"></option>
+                                                    </select>
+                                            </div>
+                                        </div>
+                                    {#{% endif %}#}
+                                    {% if form.site is defined %}
 
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                {{ form_label(form.service) }}
-                                                {{ form_widget(form.service, {'attr': {'class': 'bs-select form-control service'}}) }}
+                                                {{ form_label(form.site) }}
+                                                {{ form_widget(form.site, {'attr': {'class': 'bs-select form-control site'}}) }}
                                                 {#{<select id="form_service" style="display: none"/>}#}
                                             </div>
                                         </div>
@@ -239,6 +255,29 @@
                                             </div>
                                         </div>
                                     {% endif %}
+                                    {% if form.disabled is defined %}
+                                        <div class="col-sm-6">
+                                            <div class="form-group has-feedback" style="display: none">
+                                                {{ form_label(form.disabled) }}
+                                                <div class="input-icon">
+                                                    <i class="fa fa-unlock-alt form-control-feedback"></i>
+                                                       {{ form_widget(form.disabled) }}
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                         {% endif %}
+                                          {% if form.debloq is defined %}
+                                        <div class="col-sm-6">
+                                            <div class="form-group has-feedback" style="display: none">
+                                                {{ form_label(form.debloq) }}
+                                                <div class="input-icon">
+                                                    <i class="fa fa-unlock-alt form-control-feedback"></i>
+                                                    {{ form_widget(form.debloq) }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                         {% endif %}
 
 
                                 </div>
@@ -248,6 +287,8 @@
                             </div>
                                 <div role="tabpanel" class="col-sm-6 tab-pane" id="description">
                                     <div class="row">
+                                     <div class="col-sm-8">
+                                     <div class="row">
                                         {% if form.title is defined %}
 
                                             <div class="col-sm-12">
@@ -273,7 +314,7 @@
                                                 </div>
                                             </div>
                                         {% endif %}
-                            </div>
+
                                     <div class="col-sm-12">
                                         <hr>
                                     </div>
@@ -345,25 +386,45 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    {% endif %}
-                                    {% if form.picture is defined %}
-                                        <div class="col-sm-6">
-                                            <div class="form-group has-feedback">
-                                                {{ form_label(form.picture) }}
-                                                <div class="input-icon">
-                                                    <i class="fa fa-user"></i>
-                                                    {{ form_widget(form.picture) }}
-                                                </div>
-                                            </div>
+                                        </div>
                                         </div>
                                     {% endif %}
+                                    <div class="col-sm-4 text-center" style="">
+                                        {% if form.picture is defined %}
+
+                                            <div class="form-group">
+                                                {{ form_label(form.picture) }}
+                                            </div>
+
+                                            <div class="fileinput fileinput-new " data-provides="fileinput">
+                                                <div class=" fileinput-new thumbnail">
+                                                    <img src="{{ asset('assets/img/no_image_portrait.png') }}"
+                                                         alt="" class="image-responsive"/></div>
+                                                <div class="fileinput-preview fileinput-exists thumbnail">
+                                                <span class="btn default btn-file" style="width: 100%">
+                                                                {#<span class="fileinput-exists"> Changer </span></span><br><br>#}
+                                                                <center>{{ form_widget(form.picture) }}</center></span>
+                                                                <br><br>
+                                                    <a href="javascript:;" class="btn red fileinput-exists"
+                                                       data-dismiss="fileinput"> Supprimer </a>
+</div>
+                                                <div>
+
+                                                </div>
+                                            </div>
 
 
-                                </div>
+                                        {% endif %}
+
+                                    </div>
+                                    </div>
+</div>
+
                             <div role="tabpanel" class="col-sm-6 tab-pane" id="exchange">
                                 <div class="row">
                             {% if form.at is defined %}
                                 <div class="col-sm-6">
+                                {{ form_label(form.at) }}
                                     <div class="form-group">
                                         <div class="input-icon">
                                             <i class="fa fa-at"></i>
@@ -373,6 +434,18 @@
                                     </div>
                                 </div>
                             {% endif %}
+                             {% if form.proxyadresse is defined %}
+                                            <div class="col-sm-6">
+                                            {{ form_label(form.proxyadresse) }}
+                                                <div class="form-group">
+                                                    <div class="input-icon">
+                                                        <i class="fa fa-at"></i>
+                                                        {{ form_widget(form.proxyadresse)}}
+                                                        {#{<select id="form_at" style="display: none"/>}#}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endif %}
                         </div>
 
                                 <!-- END FORM-->
@@ -435,24 +508,71 @@
                 });
             });
         </script>
+        {#<script>#}
+          {#var $at = $('#user_at');#}
+                {#$at.change(function () {#}
+{#//                    console.log($at);#}
+                    {#var $form = $(this).closest('form');#}
+                    {#var data = {};#}
+                    {#data[$at.attr('name')] = $at.val();#}
+                    {#$.ajax({#}
+                        {#url: $form.attr('action'),#}
+                        {#type: $form.attr('method'),#}
+                        {#data: data,#}
+                        {#success: function (html) {#}
+                            {#$('#user_service').replaceWith(#}
+                                {#$(html).find('#user_service')#}
+                            {#);#}
+                        {#}#}
+                    {#});#}
+                {#});#}
+        {#</script>#}
         <script>
-            var $at = $('#form_at');
-            $at.change(function() {
-                var $form = $(this).closest('form');
-                var data = {};
-                data[$at.attr('name')] = $at.val();
-                $.ajax({
-                    url : $form.attr('action'),
-                    type: $form.attr('method'),
-                    data : data,
-                    success: function(html) {
-                        $('#form_service').replaceWith(
-                            $(html).find('#form_service')
-                        );
-                    }
+        $('#user_edit_at').change(function(){
+                switch($(this).val()){
+                    case '1': // If at == '1'
+                        var choice = {
+                            'Saint-mandé':'42Consulting Paris',
+//                            'choice1_2':'1_2',
+//                            'choice1_3':'1_3',
+                        };
+                        break;
+                    case '2': // If at == '2'
+                        var choice = {
+                            'Luxembourg':'42Consulting Lux',
+//                            'choice2_2':'2_2',
+//                            'choice2_3':'2_3',
+                        };
+                        break;
+                    case '3': // If at == '3'
+                        var choice = {
+                            ' Issy-Les-Moulineaux':'42MediaTelecom',
+//                            'choice3_2':'3_2',
+//                            'choice3_3':'3_3',
+                        };
+                        break;
+                    case '4': // If at == '4'
+                        var choice = {
+                            'Casablanca': '42Consulting Maroc',
+                };
+                        break;
+                    case '5': // If at == '5'
+                        var choice = {
+                            'Luxembourg':'42Consulting Lux',
+                        };
+                        break;
+                }
+
+                var $serviceSelect = $('#user_service_edit');
+
+                $serviceSelect.empty();
+                $.each(choice, function(key, value) {
+                    console.log(choice);
+                    $serviceSelect.append($('<option></option>').val(key).text(value));
+//                    console.log($serviceSelect.val());
                 });
             });
-        </script>
+            </script>
         {#<script type="text/javascript">#}
             {#$(function()#}
             {#{#}
