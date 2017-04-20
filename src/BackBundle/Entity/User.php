@@ -169,7 +169,7 @@ class User extends BaseUser
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
-    //   Vich\UploadableField(mapping="image", fileNameProperty="picture")
+    //   Vich\UploadableField(mapping="image", fileNameProperty="picture", nullable=true)
      *
      * @var File
      */

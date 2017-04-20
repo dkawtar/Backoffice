@@ -136,12 +136,12 @@ class UploadImage
         //----------------- CREATION IMAGE THUMBNAIL -----------------
         $imgDimension = getimagesize($file->getRealPath());
         
-        $imgWidth = 200;
+        $imgWidth = 96;
         $ratio = $imgWidth / $imgDimension[0];
         $imgHeight = $imgDimension[1] * $ratio;
 
         if ($imgHeight > $imgWidth) {
-            $imgHeight = 200;
+            $imgHeight = 96;
             $ratio = $imgHeight / $imgDimension[1];
             $imgWidth = $imgDimension[0] * $ratio;
         }

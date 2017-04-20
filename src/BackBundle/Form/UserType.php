@@ -155,6 +155,21 @@ class UserType extends AbstractType
                     ),
 
                 )
+            )
+            ->add('site', ChoiceType::class, array(
+                    'label' => 'Site',
+                    'choices' => array(
+                        "Saint-Mandé" => "Saint-Mandé",
+                        "Luxembourg" => "Luxembourg",
+                        "Issy-Les-Moulineaux" => "Issy-Les-Moulineaux",
+                        "Maroc" => "Maroc"
+                    ),
+                    'attr' => array(
+                        'class' => 'form-control site',
+                        'placeholder' => 'site',
+                    ),
+
+                )
             )->add('group', HiddenType::class, array(
                     'label' => '',
                     'attr' => array(
@@ -169,6 +184,12 @@ class UserType extends AbstractType
                     'mapped' => false,
                     'required' => false,
                 )
+            )
+            ->add('picture', FileType::class, array(
+                'label' => 'Photo de profil',
+                'mapped' => false,
+                'required' => false,
+            )
             )
             ->add('phone', TextType::class, array(
                     'label' => 'Fix',
