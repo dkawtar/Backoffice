@@ -156,7 +156,7 @@
 
                                         {% if form.password is defined %}
                                             <div class="col-sm-12">
-                                                <div class="form-group has-feedback">
+                                                <div class="form-group has-feedback" id="field-password">
                                                     {{ form_label(form.password) }}
                                                     <div class="input-icon">
                                                         <i class="fa fa-unlock-alt form-control-feedback"></i>
@@ -166,7 +166,7 @@
                                             </div>
 
                                             <div class="col-sm-12">
-                                                <div class="form-group has-feedback">
+                                                <div class="form-group has-feedback" id="field-confirm-password">
                                                     <label for="confirm-password " class="required">Confirmation mot
                                                         de
                                                         passe</label>
@@ -294,7 +294,7 @@
                                                 <div class="form-group">
                                                     {{ form_label(form.picture) }}
                                                 </div>
-                                                
+
                                                 <div class="fileinput fileinput-new " data-provides="fileinput">
                                                     <div class=" fileinput-new thumbnail">
                                                         <img src="{{ asset('assets/img/no_image_portrait.png') }}"

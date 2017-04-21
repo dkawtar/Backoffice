@@ -100,7 +100,10 @@
                                 </li>
                                 <li>
                                     <a href="#exchange"role="tab" data-toggle="tab"> Exchange</a>
-                                </li></ul></div>
+                                </li>
+                                </ul>
+                                
+                                </div>
                                 {% if form is defined and user.dn is not null %}
                             {#{{ dump(adUser) }}#}
                             {{ form_start(form, { 'method': 'POST','attr': { 'role':'form'} }) }}
@@ -393,7 +396,8 @@
                 </div>
             </div>
         </div>
-                 <div class="col-sm-12">
+            <hr>
+                 
                                 <div class="row">
                                     <div class="col-md-3 col-offset-sm-3">
                                         <button type="submit" class="btn green btn-block" id="save-edit">Enregistrer
@@ -403,7 +407,6 @@
                                         <a href="{{ path('back_user_list') }}"  class="btn default btn-block">Annuler</a>
                                     </div>
                                 </div>
-                            </div>
 
                             {{ form_end(form) }}
 
