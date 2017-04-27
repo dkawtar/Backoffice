@@ -71,16 +71,16 @@ class UserType extends AbstractType
 //
 //                )
 //            )
-            ->add('password', PasswordType::class, array(
-                    'label' => 'Mot de passe',
-                    'required' => true,
-                    'attr' => array(
-                        'class' => 'form-control password input-required',
-                        'placeholder' => 'Mot de passe',
-                        'autocomplete' => 'off'
-                    ),
-                )
-            )
+//            ->add('password', PasswordType::class, array(
+//                    'label' => 'Mot de passe',
+//                    'required' => true,
+//                    'attr' => array(
+//                        'class' => 'form-control password input-required',
+//                        'placeholder' => 'Mot de passe',
+//                        'autocomplete' => 'off'
+//                    ),
+//                )
+//            )
             ->add('title', TextType::class, array(
                     'label' => 'Fonction',
                     'required' => false,
