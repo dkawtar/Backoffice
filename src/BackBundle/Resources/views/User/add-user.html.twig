@@ -163,18 +163,19 @@
 
 
 
-                                        {#{% if form.password is defined %}#}
-                                            {#<div class="col-sm-12">#}
-                                                {#<div class="form-group has-feedback" id="field-password">#}
-                                                    {#{{ form_label(form.password) }}#}
-                                                    {#<div class="input-icon">#}
-                                                        {#<i class="fa fa-unlock-alt form-control-feedback"></i>#}
-                                                        {#{{ form_widget(form.password) }}#}
-                                                    {#</div>#}
-                                                {#</div>#}
-                                            {#</div>#}
+                                        {% if form.password is defined %}
+                                            <div class="col-sm-12">
+                                                <div class="form-group has-feedback" id="field_password">
+                                                    {{ form_label(form.password) }}
+                                                    <div class="input-icon">
+                                                        {#<a href="javascript:;" id="btn_mdp"></a>#}
+                                                        <i class="fa fa-unlock-alt form-control-feedback"></i>
+                                                        {{ form_widget(form.password) }}
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                                            {#<div class="col-sm-12">#}
+                                            <div class="col-sm-12">
                                                 {#<div class="form-group has-feedback" id="field-password">#}
                                                     {#<label for="confirm-password " class="required">Confirmation mot#}
                                                         {#de#}
@@ -188,7 +189,7 @@
                                                     {#</div>#}
                                                 {#</div>#}
                                             {#</div>#}
-                                        {#{% endif %}#}
+                                        {% endif %}
                                         {% if form.disabled is defined %}
                                             <div class="col-sm-6">
                                                 <div class="form-group has-feedback">
@@ -213,7 +214,7 @@
                                             </div>
                                         {% endif %}
                                         {#{% endif %}#}
-
+                                            </div>
                                     </div>
 
                                     <!-- END FORM-->
@@ -422,6 +423,9 @@
                                     </div>
                                     <div class="col-md-3">
                                         <a href="{{ path('back_user_list') }}" class="btn default btn-block">Annuler</a>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="submit" class="btn green btn-block btn-mdp">Générer nouveau mot de passe</button>
                                     </div>
                                 </div>
                             </div>
